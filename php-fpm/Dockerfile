@@ -1,4 +1,4 @@
-FROM php:7.1.9-fpm
+FROM php:8.0.8-fpm
 
 # Additional tools
 RUN apt-get update \

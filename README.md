@@ -5,4 +5,4 @@ Um docker para o desenvolvimento de aplicações em Laravel.
 
   - MYSQL 5.7
   - NGINX - (Servidor Web)
-  - php (7.2)
+  - php (8.0.8)
