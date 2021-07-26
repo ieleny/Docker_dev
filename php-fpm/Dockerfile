@@ -1,4 +1,4 @@
-FROM php:8.0.8-fpm
+FROM php:7.4.21-fpm
 
 # Additional tools
 RUN apt-get update \
@@ -8,7 +8,7 @@ RUN apt-get update \
     nano
 
 # Common php-ext and requirements
-RUN apt-get install -y --no-install-recommends libpq-dev libz-dev \
+RUN apt-get install -y --no-install-recommends libpq-dev libz-dev libssl-dev \
  && docker-php-ext-install pcntl \
  && docker-php-ext-install session \
  && docker-php-ext-install phar \
@@ -22,11 +22,10 @@ RUN apt-get install -y --no-install-recommends libpq-dev libz-dev \
 ARG INSTALL_GD=false
 RUN if [ ${INSTALL_GD} = true ]; then \
     # Install gd and requirements
-    apt-get install -y --no-install-recommends libjpeg-dev libpng12-dev libfreetype6-dev \
+    apt-get install -y --no-install-recommends libjpeg-dev libpng-dev libfreetype6-dev libzip-dev\
  && docker-php-ext-configure gd \
-    --enable-gd-native-ttf \
-    --with-jpeg-dir=/usr/lib \
-    --with-freetype-dir=/usr/include/freetype2 \
+    --with-jpeg=/usr/lib \
+    --with-freetype=/usr/include/freetype2 \
  && docker-php-ext-install gd \
 ;fi
 
@@ -57,22 +56,21 @@ RUN if [ ${INSTALL_FTP} = true ]; then \
 # MCrypt:
 #####################################
 
-ARG INSTALL_MCRYPT=false
-RUN if [ ${INSTALL_MCRYPT} = true ]; then \
+#ARG INSTALL_MCRYPT=false
+#RUN if [ ${INSTALL_MCRYPT} = true ]; then \
     # Install mcrypt and requirements
-    apt-get install -y --no-install-recommends libmcrypt-dev \
- && docker-php-ext-install mcrypt \
-;fi
+    #pecl install mcrypt-1.0.2 \
+    #docker-php-ext-enable mcrypt-1.0.2 \
+#;fi
 
 #####################################
 # Mbstring:
 #####################################
-
-ARG INSTALL_MBSTRING=false
-RUN if [ ${INSTALL_MBSTRING} = true ]; then \
+#ARG INSTALL_MBSTRING=false
+#UN if [ ${INSTALL_MBSTRING} = true ]; then \
     # Install mbstring
-    docker-php-ext-install mbstring \
-;fi
+    #docker-php-ext-install mbstring \
+#;fi
 
 #####################################
 # PDO_MYSQL:

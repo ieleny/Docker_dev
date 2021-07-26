@@ -1,0 +1,1 @@
+2021/07/26 01:19:13 [error] 8#8: *2 directory index of "/var/www/html/" is forbidden, client: 172.19.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
